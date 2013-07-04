@@ -52,4 +52,8 @@ class MailchimpComponent extends Component {
 		$retval = $this->chimp->listSubscribe($this->listId, $email, $merge_vars );
 		return $this->chimp->errorCode;
 	}
+
+  public function listMemberInfo(){
+    
+  }
 }
