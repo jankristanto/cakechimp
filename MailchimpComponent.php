@@ -5,7 +5,6 @@
 * @author : Jan Kristanto 
 */
 class MailchimpComponent extends Component {
-
 	public $chimp;
 	public $listId;
 	public $api;
@@ -16,6 +15,8 @@ class MailchimpComponent extends Component {
 	* @param array $settings Array of configuration settings.
 	*/
 	public function __construct(ComponentCollection $collection, $settings = array()) {
+		$this->api = $settings['api'];
+		$this->listId = $settings['listId'];
 		parent::__construct($collection, $settings);
 	}
 
@@ -47,13 +48,16 @@ class MailchimpComponent extends Component {
 		return $retval;
 	}
 
+	public function listMemberInfo($emails){
+		$retval = $this->chimp->listMemberInfo($this->listId, $emails);
+		return $retval;
+	}
+	
 	public function subscribe($email,$fname,$lname){
 		$merge_vars = array('FNAME'=>$fname, 'LNAME'=>$lname);
 		$retval = $this->chimp->listSubscribe($this->listId, $email, $merge_vars );
 		return $this->chimp->errorCode;
 	}
 
-  public function listMemberInfo(){
-    
-  }
+	
 }
